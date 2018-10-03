@@ -1,0 +1,137 @@
+import profesionales.*
+import universidades.*
+import empresas.*
+
+describe "tests de la etapa 1"{
+	
+	var universidadDeSanMartin  = 	new Universidad()
+	var universidadDeRosario    = 	new Universidad()
+	var universidadDeCorrientes =   new Universidad()
+	var universidadDeHurlingham =   new Universidad()
+	
+	var juana    = new ProfesionalVinculado()
+	var melina   = new ProfesionalAsociado()
+	var rocio    = new ProfesionalLibre()
+	var luciana  = new ProfesionalLibre()
+	
+	var skynet  = new Empresa()
+	
+	
+	fixture {
+		
+		universidadDeSanMartin.provincia("Buenos Aires")
+		universidadDeSanMartin.honorarios(3500)
+		
+		universidadDeRosario.provincia("Santa Fe")
+		universidadDeRosario.honorarios(2800)
+		
+		universidadDeCorrientes.provincia("Corrientes")
+		universidadDeCorrientes.honorarios(4200)
+		
+		universidadDeHurlingham.provincia("Buenos Aires")
+		universidadDeHurlingham.honorarios(8800)
+		
+		juana.universidad(universidadDeRosario)
+		melina.universidad(universidadDeCorrientes)
+		
+		rocio.universidad(universidadDeHurlingham)
+		rocio.honorarios(5000)
+		rocio.provinciasHabilitadas(["Santa Fe", "Cordoba", "Buenos Aires"])
+		
+		luciana.universidad(universidadDeRosario)
+		luciana.honorarios(3200)
+		luciana.provinciasHabilitadas(["Santa Fe", "Entre Rios"])	
+		
+		
+		skynet.profesionalesContratados([juana, melina, rocio, luciana])
+		skynet.honorariosDeReferencia(3500)
+		
+	}
+	
+	test "Profesionales Caros"	{
+		assert.equals(skynet.profesionalesCaros(), [rocio])
+	}
+	
+	test "Universidades formadoras"{
+		var universidadesFormadoras = skynet.universidadesFormadoras().asSet()
+		assert.equals(universidadesFormadoras, #{universidadDeRosario, universidadDeCorrientes, universidadDeHurlingham})	
+		assert.equals(universidadesFormadoras.size(), 3)
+	}
+	
+	test "Profesional mas barato"{
+		assert.equals(skynet.profesionalMasBarato(), juana.honorariosPorHora())
+	}
+	
+	test "Provincias cubiertas"{
+		assert.that(skynet.provinciaEstaCubierta("Santa Fe"))
+		assert.that(skynet.provinciaEstaCubierta("Cordoba"))	
+		assert.that(!skynet.provinciaEstaCubierta("Misiones"))
+	}
+	
+	test "Lugares de estudios de los empleados"{
+	
+		assert.equals(skynet.universidadesFormadoras().occurrencesOf(universidadDeRosario), 2)
+		assert.equals(skynet.universidadesFormadoras().occurrencesOf(universidadDeHurlingham), 1)
+	    assert.equals(skynet.universidadesFormadoras().occurrencesOf(universidadDeSanMartin), 0)
+	
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}	
+	
+	
+	
+	
+	
